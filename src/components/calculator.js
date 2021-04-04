@@ -101,6 +101,7 @@ const Calculator = () => {
     let [operand2,setOperand2] = useState("");
     let [operator,setOperator] = useState("");
     let [result,setResult] = useState(null);
+    let [previousOperation,setPreviousOperation] = useState(null);
     const reset = () =>{
         setOperand1("0");
         setOperand2("");
@@ -113,7 +114,9 @@ const Calculator = () => {
             reset();
         }
         else if(item.value === "="){
-            console.log(operations[operator](Number(operand1),Number(operand2)));
+            setPreviousOperation(operand1 + operator + operand2);
+            setOperand2("");
+            setOperator("");
             setResult(operations[operator](Number(operand1),Number(operand2)))
         }
         else if(item.type ===  undefined && operator === ""){
@@ -127,6 +130,10 @@ const Calculator = () => {
             setOperand2(operand2+""+item.value)
         }
         else{
+            if(result){
+                setOperand1(result)
+                setResult(null);
+            }
             setOperator(item.value);
         }
     }
@@ -135,7 +142,7 @@ const Calculator = () => {
         <div className="calculator-container">
             <div className="result-container">
                 {
-                    <div className={`operation ${result ? "visible" : "hidden"}`}>{operand1}{operator}{operand2}</div>
+                    <div className={`operation ${result ? "visible" : "hidden"}`}>{previousOperation}</div>
                 }
                 <div className="result">{result ? result : operand1 + operator + operand2}</div>
             </div>
