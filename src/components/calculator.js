@@ -97,12 +97,12 @@ const operations = {
 
 const Calculator = () => {
 
-    let [operand1,setOperand1] = useState("");
+    let [operand1,setOperand1] = useState("0");
     let [operand2,setOperand2] = useState("");
     let [operator,setOperator] = useState("");
     let [result,setResult] = useState(null);
     const reset = () =>{
-        setOperand1("");
+        setOperand1("0");
         setOperand2("");
         setResult(null);
         setOperator("");
@@ -117,7 +117,11 @@ const Calculator = () => {
             setResult(operations[operator](Number(operand1),Number(operand2)))
         }
         else if(item.type ===  undefined && operator === ""){
-            setOperand1(operand1+""+item.value)
+            if(operand1 === "0"){
+                setOperand1(item.value)
+            }
+            else
+                setOperand1(operand1+""+item.value)
         }
         else if(item.type ===  undefined){
             setOperand2(operand2+""+item.value)
