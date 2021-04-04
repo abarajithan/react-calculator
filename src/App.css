@@ -33,7 +33,7 @@
   text-align: right;
   padding: 20px 20px 10px 0;
   letter-spacing: 5px;
-
+  height: 20px;
 }
 
 .result{
@@ -42,6 +42,7 @@
   padding-right: 20px;
   padding: 0 20px 10px 0;
   font-size: 35px;
+  height: 40px;
   font-weight: 500;
 }
 
@@ -88,4 +89,12 @@
   border-bottom-right-radius:10px;
   background: rgb(248,204,98);
 background: linear-gradient(135deg, rgba(248,204,98,1) 35%, rgba(255,155,103,1) 100%);
+}
+
+.visible{
+  visibility: visible;
+}
+
+.hidden{
+  visibility: hidden;
 }
