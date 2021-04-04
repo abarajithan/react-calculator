@@ -1,99 +1,5 @@
-import { useState } from "react";
-
-const buttonList = [
-    [
-        {
-            value:"C",
-            className: "purple",
-            type: "operator"
-        },{
-            value:"+/-",
-            className: "purple",
-            type: "operator"
-        },{
-            value:"%",
-            className: "purple",
-            type: "operator"
-        }
-    ],
-    [
-        {
-            value:"7",
-            className: "purple-light",
-        },{
-            value:"8",
-            className: "purple-light",
-        },{
-            value:"9",
-            className: "purple-light",
-        }
-    ],
-    [
-        {
-            value:"4",
-            className: "purple-light",
-        },{
-            value:"5",
-            className: "purple-light",
-        },{
-            value:"6",
-            className: "purple-light",
-        }
-    ],
-    [
-        {
-            value:"1",
-            className: "purple-light",
-        },{
-            value:"2",
-            className: "purple-light",
-        },{
-            value:"3",
-            className: "purple-light",
-        }
-    ],
-    [
-        {
-            value:"0",
-            className: "purple-light bottom-left-cell",
-            flexBasis: "66%"
-        },{
-            value:".",
-            className: "purple-light",
-        }
-    ],
-]
-const operatorList =  [
-    {
-        value:"/",
-        type:"operator",
-        className: "",
-    },{
-        value:"*",
-        type:"operator",
-        className: "",
-    },{
-        value:"-",
-        type:"operator",
-        className: "",
-    },{
-        value:"+",
-        type:"operator",
-        className: "",
-    },{
-        value:"=",
-        type:"operator",
-        className: "bottom-right-cell",
-    }
-];
-
-const operations = {
-    "/": (a,b) => a/b,
-    "*": (a,b) => a*b,
-    "-": (a,b) => a-b,
-    "+": (a,b) => a+b
-}
-
+import { useState,useEffect,useCallback } from "react";
+import {buttonList,operations,operatorList} from '../metadata';
 
 const Calculator = () => {
 
@@ -137,6 +43,20 @@ const Calculator = () => {
             setOperator(item.value);
         }
     }
+
+    const keyPressFunction = useCallback((event) => {
+        if(event.keyCode) {
+            console.log(event.keyCode)
+          //Do whatever when esc is pressed
+        }
+      }, []);
+
+    useEffect(() => {
+        document.addEventListener("keydown", keyPressFunction, false);
+        return () => {
+          document.removeEventListener("keydown", keyPressFunction, false);
+        };
+      }, []);
 
     return(
         <div className="calculator-container">
