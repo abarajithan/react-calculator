@@ -44,19 +44,43 @@ const Calculator = () => {
         }
     }
 
-    const keyPressFunction = useCallback((event) => {
-        if(event.keyCode) {
-            console.log(event.keyCode)
-          //Do whatever when esc is pressed
-        }
-      }, []);
+    
 
     useEffect(() => {
+
+        const keyPressFunction = (event) => {
+            if(event.key >=0 & event.key <= 9) {
+                if(operator === ""){
+                    if(operand1 === "0"){
+                        setOperand1(event.key)
+                    }
+                    else
+                        setOperand1(operand1+""+event.key)
+                }
+                else{
+                    setOperand2(operand2+""+event.key)
+                }
+            }
+            else if(event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/'){
+                if(result){
+                    setOperand1(result)
+                    setResult(null);
+                }
+                setOperator(event.key);
+            }
+            else if(event.keyCode === 13 || event.key === "="){
+                setPreviousOperation(operand1 + operator + operand2);
+                setOperand2("");
+                setOperator("");
+                setResult(operations[operator](Number(operand1),Number(operand2)))
+            }
+          };
+
         document.addEventListener("keydown", keyPressFunction, false);
         return () => {
           document.removeEventListener("keydown", keyPressFunction, false);
         };
-      }, []);
+      }, [operand1, operand2, operator, result, setOperator, setOperand1, setOperand2, setResult]);
 
     return(
         <div className="calculator-container">
